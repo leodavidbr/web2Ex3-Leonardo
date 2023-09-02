@@ -21,17 +21,17 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("{idUsuario}")
-    public Usuario findUsuarioById(@PathVariable Long idUsuario){
+    public Usuario findUsuarioById(@PathVariable Long idUsuario) {
         return usuarioRepository.findById(idUsuario).get();
     }
 
     @GetMapping
-    public List<Usuario> getAllUsuarios(){
+    public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody @Valid Usuario usuario){
+    public Usuario createUsuario(@RequestBody @Valid Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 

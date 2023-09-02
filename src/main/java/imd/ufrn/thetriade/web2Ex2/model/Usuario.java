@@ -22,7 +22,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    
+
     @ManyToOne
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
@@ -31,18 +31,16 @@ public class Usuario {
     @GeneratedValue
     private Long idUsuario;
 
-
     @ManyToMany
-    @JoinTable(name="usuario_tem_papeis", joinColumns=
-        {@JoinColumn(name="usuario_id")}, inverseJoinColumns=
-        {@JoinColumn(name="papel_id")})
+    @JoinTable(name = "usuario_tem_papeis", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "papel_id") })
     private Set<Papel> papeis;
 
     public void addUsuario(Papel papel) {
         this.papeis.add(papel);
         papel.getUsuarios().add(this);
     }
- 
+
     public void removeUsuario(Papel papel) {
         this.papeis.remove(papel);
         papel.getUsuarios().remove(this);

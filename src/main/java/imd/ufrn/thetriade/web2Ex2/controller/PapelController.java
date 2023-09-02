@@ -22,17 +22,17 @@ public class PapelController {
     private PapelRepository papelRepository;
 
     @GetMapping("{idPapel}")
-    public Papel findPapelById(@PathVariable Long idPapel){
+    public Papel findPapelById(@PathVariable Long idPapel) {
         return papelRepository.findById(idPapel).get();
     }
 
     @GetMapping
-    public List<Papel> getAllPapels(){
+    public List<Papel> getAllPapels() {
         return papelRepository.findAll();
     }
 
     @PostMapping
-    public Papel createPapel(@RequestBody @Valid Papel papel){
+    public Papel createPapel(@RequestBody @Valid Papel papel) {
         return papelRepository.save(papel);
     }
 }

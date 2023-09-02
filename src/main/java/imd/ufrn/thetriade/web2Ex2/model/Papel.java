@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,22 +20,22 @@ import lombok.Setter;
 @Entity
 @Table(name = "papel")
 public class Papel {
-    
+
     @Id
     @GeneratedValue
     private Long id;
 
     @NotBlank
     private String nome;
-    
-    @ManyToMany(mappedBy="papeis")
+
+    @ManyToMany(mappedBy = "papeis")
     private Set<Usuario> usuarios;
 
     public void addUsuario(Usuario usuario) {
         this.usuarios.add(usuario);
         usuario.getPapeis().add(this);
     }
- 
+
     public void removeUsuario(Usuario usuario) {
         this.usuarios.remove(usuario);
         usuario.getPapeis().remove(this);

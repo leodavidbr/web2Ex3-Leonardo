@@ -20,8 +20,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "pessoa")
-public class Pessoa extends AbstractEntity{
-    
+public class Pessoa extends AbstractEntity {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -29,15 +29,15 @@ public class Pessoa extends AbstractEntity{
     @NotBlank
     @NotEmpty
     private String nome;
-    
-    @OneToMany(mappedBy="pessoa")
+
+    @OneToMany(mappedBy = "pessoa")
     List<Usuario> usuarios;
 
     public void addUsuario(Usuario usuario) {
         this.usuarios.add(usuario);
         usuario.setPessoa(this);
     }
- 
+
     public void removeUsuario(Usuario usuario) {
         this.usuarios.remove(usuario);
         // TODO: talvez deletar o Usuario? Analisar

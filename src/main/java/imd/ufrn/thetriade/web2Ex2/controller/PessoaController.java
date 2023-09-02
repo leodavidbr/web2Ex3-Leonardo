@@ -21,22 +21,22 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping("{idPessoa}")
-    public Pessoa findPessoaById(@PathVariable Long idPessoa){
+    public Pessoa findPessoaById(@PathVariable Long idPessoa) {
         return pessoaRepository.findById(idPessoa).get();
     }
 
     @GetMapping
-    public List<Pessoa> getAllPessoas(){
+    public List<Pessoa> getAllPessoas() {
         return pessoaRepository.findAll();
     }
 
     @PostMapping
-    public Pessoa createPessoa(@RequestBody @Valid Pessoa pessoa){
+    public Pessoa createPessoa(@RequestBody @Valid Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }
 
     @GetMapping("/comecaCom/{comecoNome}")
-    public List<Pessoa> getAllPessoasNomeStartsWith(@PathVariable String comecoNome){
+    public List<Pessoa> getAllPessoasNomeStartsWith(@PathVariable String comecoNome) {
         return pessoaRepository.findByNomeStartsWithIgnoreCase(comecoNome);
     }
 
