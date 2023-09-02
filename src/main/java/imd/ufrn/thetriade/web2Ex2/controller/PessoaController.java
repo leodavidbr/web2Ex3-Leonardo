@@ -36,7 +36,8 @@ public class PessoaController {
     }
 
     @GetMapping("/comecaCom/{comecoNome}")
-    public List<Pessoa> getAllPessoasNomeStartsWith(@PathVariable String comecoNome) {
+    public List<Pessoa> getAllPessoasNomeStartsWith(
+            @PathVariable String comecoNome) {
         return pessoaRepository.findByNomeStartsWithIgnoreCase(comecoNome);
     }
 

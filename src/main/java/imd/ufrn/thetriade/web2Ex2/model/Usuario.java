@@ -32,8 +32,9 @@ public class Usuario {
     private Long idUsuario;
 
     @ManyToMany
-    @JoinTable(name = "usuario_tem_papeis", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "papel_id") })
+    @JoinTable(name = "usuario_tem_papeis", joinColumns = {
+            @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "papel_id") })
     private Set<Papel> papeis;
 
     public void addUsuario(Papel papel) {
