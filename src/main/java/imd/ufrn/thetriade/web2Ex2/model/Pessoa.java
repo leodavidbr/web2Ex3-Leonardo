@@ -2,6 +2,8 @@ package imd.ufrn.thetriade.web2Ex2.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -30,6 +32,7 @@ public class Pessoa extends AbstractEntity {
     @NotEmpty
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pessoa")
     List<Usuario> usuarios;
 

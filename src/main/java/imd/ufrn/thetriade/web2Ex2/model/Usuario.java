@@ -10,6 +10,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class Usuario {
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
 
+    @NotBlank
+    private String email;
+
     @Id
     @GeneratedValue
     private Long idUsuario;
@@ -37,13 +41,13 @@ public class Usuario {
                     @JoinColumn(name = "papel_id") })
     private Set<Papel> papeis;
 
-    public void addUsuario(Papel papel) {
-        this.papeis.add(papel);
-        papel.getUsuarios().add(this);
-    }
+    // public void addUsuario(Papel papel) {
+    // this.papeis.add(papel);
+    // papel.getUsuarios().add(this);
+    // }
 
-    public void removeUsuario(Papel papel) {
-        this.papeis.remove(papel);
-        papel.getUsuarios().remove(this);
-    }
+    // public void removeUsuario(Papel papel) {
+    // this.papeis.remove(papel);
+    // papel.getUsuarios().remove(this);
+    // }
 }

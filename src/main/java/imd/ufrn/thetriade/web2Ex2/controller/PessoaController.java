@@ -3,6 +3,7 @@ package imd.ufrn.thetriade.web2Ex2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import imd.ufrn.thetriade.web2Ex2.model.Pessoa;
 import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import jakarta.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {

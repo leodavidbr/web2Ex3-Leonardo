@@ -2,12 +2,15 @@ package imd.ufrn.thetriade.web2Ex2.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +31,10 @@ public class Papel {
     @NotBlank
     private String nome;
 
+    @NotNull
+    private Long prioridade;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "papeis")
     private Set<Usuario> usuarios;
 
