@@ -2,7 +2,9 @@ package imd.ufrn.thetriade.web2Ex2.model;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -12,12 +14,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,21 +33,26 @@ public class Usuario {
 
     @Id
     @GeneratedValue
-    private Long idUsuario;
+    private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE })
     @JoinTable(name = "usuario_tem_papeis", joinColumns = {
             @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
                     @JoinColumn(name = "papel_id") })
     private Set<Papel> papeis;
 
-    // public void addUsuario(Papel papel) {
-    // this.papeis.add(papel);
-    // papel.getUsuarios().add(this);
-    // }
+    public void addPapel(Papel papel) {
+        this.papeis.add(papel);
+        papel.getUsuarios().add(this);
+    }
 
-    // public void removeUsuario(Papel papel) {
-    // this.papeis.remove(papel);
-    // papel.getUsuarios().remove(this);
-    // }
+    public void removePapel(long papelId) {
+        Papel papel = this.papeis.stream().filter(p -> p.getId() == papelId)
+                .findFirst().orElse(null);
+        if (papel != null) {
+            this.papeis.remove(papel);
+            papel.getUsuarios().remove(this);
+        }
+    }
 }

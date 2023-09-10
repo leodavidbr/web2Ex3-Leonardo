@@ -8,7 +8,7 @@ INSERT INTO papel (id, nome, prioridade) VALUES
     (2L, 'SCRUM MASTER', 2L),
     (3L, 'DESENVOLVEDOR', 1L);
 
-INSERT INTO usuario (Id_Pessoa, Id_Usuario, email) VALUES
+INSERT INTO usuario (Id_Pessoa, id, email) VALUES
     (1L, 1L, 'pvlb@gmail.com'),
     (1L, 2L, 'pvlb-dev@gmail.com'),
     (2L, 3L, 'Fqt@gmail.com'),
