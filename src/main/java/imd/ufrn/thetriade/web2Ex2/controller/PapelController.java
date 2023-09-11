@@ -68,7 +68,7 @@ public class PapelController {
         return new ResponseEntity<>(papeis, HttpStatus.OK);
     }
 
-    @GetMapping("/papeis/{papelId}/usuarios")
+    @GetMapping("/papel/{papelId}/usuarios")
     public ResponseEntity<List<Usuario>> getUsuariosByPapelId(
             @PathVariable Long papelId) {
         if (!papelRepository.existsById(papelId)) {
@@ -81,14 +81,14 @@ public class PapelController {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @PostMapping("/papel")
+    @PostMapping
     public ResponseEntity<Papel> createPapel(@RequestBody @Valid Papel papel) {
         Papel papelCreated = papelRepository.save(papel);
 
         return new ResponseEntity<>(papelCreated, HttpStatus.CREATED);
     }
 
-    @PostMapping("/usuarios/{usuarioId}/papeis")
+    @PostMapping("/usuario/{usuarioId}/papel")
     public ResponseEntity<Papel> addPapel(
             @PathVariable(value = "usuarioId") Long usuarioId,
             @RequestBody @Valid Papel papelRequest) {

@@ -40,12 +40,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @GetMapping("{idUsuario}")
-    public ResponseEntity<Usuario> findUsuarioById(
-            @PathVariable Long idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario)
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> findUsuarioById(@PathVariable Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Usuario with id = " + idUsuario + " not found"));
+                        "Usuario with id = " + id + " not found"));
 
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
