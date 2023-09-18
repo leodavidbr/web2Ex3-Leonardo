@@ -31,7 +31,7 @@ import lombok.Setter;
 @Table(name = "usuario")
 public class Usuario {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
 

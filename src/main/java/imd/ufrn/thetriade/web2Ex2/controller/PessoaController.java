@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/api/pessoa")
 public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;

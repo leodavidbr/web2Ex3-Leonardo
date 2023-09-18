@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/papel")
+@RequestMapping("/api/papel")
 public class PapelController {
 
     @Autowired

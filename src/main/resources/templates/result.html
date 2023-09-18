@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Papel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Papel</h1>
+    <fieldset>
+        <p th:text="'id: ' + ${papel.id}" />
+        <p th:text="'Nome: ' + ${papel.nome}" />
+        <p th:text="'Prioridade: ' + ${papel.prioridade}" />
+        <a href="/novopapel">Criar novo papel</a>
+    </fieldset>
+</body>
+
+</html>

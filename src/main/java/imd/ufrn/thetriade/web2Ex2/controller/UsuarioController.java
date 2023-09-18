@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
+import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
@@ -53,6 +56,8 @@ public class UsuarioController {
     public ResponseEntity<Usuario> createUsuario(
             @RequestBody @Valid Usuario usuario) {
         usuario.setId(null);
+        usuario.setPessoa(
+                pessoaRepository.findById(usuario.getPessoa().getId()).get());
         Usuario usuarioCreated = usuarioRepository.save(usuario);
 
         return new ResponseEntity<>(usuarioCreated, HttpStatus.CREATED);
