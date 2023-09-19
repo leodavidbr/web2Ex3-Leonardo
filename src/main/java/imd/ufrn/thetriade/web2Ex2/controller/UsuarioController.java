@@ -20,6 +20,7 @@ import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
 import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
+import imd.ufrn.thetriade.web2Ex2.service.UsuarioService;
 import jakarta.validation.Valid;
 
 @CrossOrigin
@@ -27,14 +28,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/usuario")
 public class UsuarioController {
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        usuarioRepository.findAll().forEach(usuarios::add);
+        List<Usuario> usuarios = usuarioService.findAll();
 
         if (usuarios.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,9 +45,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findUsuarioById(@PathVariable Long id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Usuario with id = " + id + " not found"));
+        Usuario usuario = usuarioService.findUsuarioById(id);
 
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
@@ -55,41 +53,28 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> createUsuario(
             @RequestBody @Valid Usuario usuario) {
-        usuario.setId(null);
-        usuario.setPessoa(
-                pessoaRepository.findById(usuario.getPessoa().getId()).get());
-        Usuario usuarioCreated = usuarioRepository.save(usuario);
+        Usuario usuarioCreated = usuarioService.createUsuario(usuario);
 
         return new ResponseEntity<>(usuarioCreated, HttpStatus.CREATED);
     }
 
-    // O ideal seria recuperar o usuario da base de dados e settar os atributos
-    // deste com os do requestBody (exceto id)
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizarPorId(@PathVariable Long id,
+    public ResponseEntity<Usuario> updateById(@PathVariable Long id,
             @RequestBody @Valid Usuario usuario) {
-        var usuarioOptional = usuarioRepository.findById(id);
-        if (usuarioOptional.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    "Usuario with id " + id + " was not found");
-        }
-
-        usuario.setId(id);
-
-        return new ResponseEntity<>(usuarioRepository.save(usuario),
+        return new ResponseEntity<>(usuarioService.updateById(id, usuario),
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteUsuarioById(@PathVariable Long id) {
-        usuarioRepository.deleteById(id);
+        usuarioService.deleteUsuarioById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAllUsuarios() {
-        usuarioRepository.deleteAll();
+        usuarioService.deleteAllUsuarios();
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
