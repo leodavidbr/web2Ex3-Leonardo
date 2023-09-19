@@ -12,10 +12,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,6 +28,7 @@ public class Pessoa extends AbstractEntity {
 
     @Id
     @GeneratedValue
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NotBlank
@@ -41,7 +46,6 @@ public class Pessoa extends AbstractEntity {
 
     public void removeUsuario(Usuario usuario) {
         this.usuarios.remove(usuario);
-        // TODO: talvez deletar o Usuario? Analisar
         usuario.setPessoa(null);
     }
 }

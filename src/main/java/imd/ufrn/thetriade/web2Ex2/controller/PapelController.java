@@ -1,6 +1,5 @@
 package imd.ufrn.thetriade.web2Ex2.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +20,16 @@ import imd.ufrn.thetriade.web2Ex2.model.Papel;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
 import imd.ufrn.thetriade.web2Ex2.repository.PapelRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
+import imd.ufrn.thetriade.web2Ex2.service.PapelService;
 import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/papel")
 public class PapelController {
+
+    @Autowired
+    private PapelService papelService;
 
     @Autowired
     private PapelRepository papelRepository;
@@ -36,9 +39,7 @@ public class PapelController {
 
     @GetMapping
     public ResponseEntity<List<Papel>> getAllPapeis() {
-        List<Papel> papeis = new ArrayList<>();
-
-        papelRepository.findAll().forEach(papeis::add);
+        List<Papel> papeis = papelService.findAll();
 
         if (papeis.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,6 +48,7 @@ public class PapelController {
         return new ResponseEntity<>(papeis, HttpStatus.OK);
     }
 
+    // daqui em diante falta passar para o Service
     @GetMapping("{id}")
     public ResponseEntity<Papel> getPapelById(@PathVariable Long id) {
         Papel papel = papelRepository.findById(id)
