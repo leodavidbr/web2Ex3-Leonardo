@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
 import imd.ufrn.thetriade.web2Ex2.model.Papel;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
-import imd.ufrn.thetriade.web2Ex2.repository.PapelRepository;
-import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
 import imd.ufrn.thetriade.web2Ex2.service.PapelService;
 import jakarta.validation.Valid;
 
@@ -30,12 +27,6 @@ public class PapelController {
 
     @Autowired
     private PapelService papelService;
-
-    @Autowired
-    private PapelRepository papelRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @GetMapping
     public ResponseEntity<List<Papel>> getAllPapeis() {
