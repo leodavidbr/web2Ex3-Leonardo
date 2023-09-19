@@ -48,12 +48,9 @@ public class PapelController {
         return new ResponseEntity<>(papeis, HttpStatus.OK);
     }
 
-    // daqui em diante falta passar para o Service
     @GetMapping("{id}")
     public ResponseEntity<Papel> getPapelById(@PathVariable Long id) {
-        Papel papel = papelRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Could not find papel with Id " + id));
+        Papel papel = papelService.findPapelById(id);
 
         return new ResponseEntity<>(papel, HttpStatus.OK);
     }
@@ -61,91 +58,55 @@ public class PapelController {
     @GetMapping("/usuario/{usuarioId}/papeis")
     public ResponseEntity<List<Papel>> getPapeisByUsuarioId(
             @PathVariable Long usuarioId) {
-        if (!usuarioRepository.existsById(usuarioId)) {
-            throw new ResourceNotFoundException(
-                    "Could not find usuario with Id " + usuarioId);
-        }
+        List<Papel> papeis = papelService.findPapeisByUsuarioId(usuarioId);
 
-        List<Papel> papeis = papelRepository.findPapelByUsuariosId(usuarioId);
         return new ResponseEntity<>(papeis, HttpStatus.OK);
     }
 
     @GetMapping("/papel/{papelId}/usuarios")
     public ResponseEntity<List<Usuario>> getUsuariosByPapelId(
             @PathVariable Long papelId) {
-        if (!papelRepository.existsById(papelId)) {
-            throw new ResourceNotFoundException(
-                    "Not found Papel with id = " + papelId);
-        }
+        var usuarios = papelService.findUsuariosByPapelId(papelId);
 
-        List<Usuario> usuarios = usuarioRepository
-                .findUsuarioByPapeisId(papelId);
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Papel> createPapel(@RequestBody @Valid Papel papel) {
-        Papel papelCreated = papelRepository.save(papel);
+        Papel papelCreated = papelService.createPapel(papel);
 
         return new ResponseEntity<>(papelCreated, HttpStatus.CREATED);
     }
 
     @PostMapping("/usuario/{usuarioId}/papel")
-    public ResponseEntity<Papel> addPapel(
+    public ResponseEntity<Papel> addPapelToUsuario(
             @PathVariable(value = "usuarioId") Long usuarioId,
             @RequestBody @Valid Papel papelRequest) {
-        Papel papel = usuarioRepository.findById(usuarioId).map(usuario -> {
-            long papelId = papelRequest.getId();
-
-            // papel already exists
-            if (papelId != 0L) {
-                Papel papelRead = papelRepository.findById(papelId)
-                        .orElseThrow(() -> new ResourceNotFoundException(
-                                "Not found Papel with id = " + papelId));
-                usuario.addPapel(papelRead);
-                usuarioRepository.save(usuario);
-                return papelRead;
-            }
-
-            // add and create new Papel
-            usuario.addPapel(papelRequest);
-            return papelRepository.save(papelRequest);
-        }).orElseThrow(() -> new ResourceNotFoundException(
-                "Not found Usuario with id = " + usuarioId));
+        Papel papel = papelService.addPapelToUsuario(usuarioId, papelRequest);
 
         return new ResponseEntity<>(papel, HttpStatus.CREATED);
     }
 
     @PutMapping("/papeis/{id}")
-    public ResponseEntity<Papel> updatePapel(@PathVariable("id") long id,
+    public ResponseEntity<Papel> updatePapel(@PathVariable("id") Long id,
             @RequestBody Papel papelRequest) {
-        Papel papel = papelRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "PapelId " + id + "not found"));
+        Papel papel = papelService.updatePapel(id, papelRequest);
 
-        papel.setNome(papelRequest.getNome());
-        papel.setPrioridade(papelRequest.getPrioridade());
-
-        return new ResponseEntity<>(papelRepository.save(papel), HttpStatus.OK);
+        return new ResponseEntity<>(papel, HttpStatus.OK);
     }
 
     @DeleteMapping("/usuarios/{usuarioId}/papeis/{papelId}")
     public ResponseEntity<HttpStatus> deletePapelFromUsuario(
             @PathVariable(value = "usuarioId") Long usuarioId,
             @PathVariable(value = "papelId") Long papelId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Not found Usuario with id = " + usuarioId));
-
-        usuario.removePapel(papelId);
-        usuarioRepository.save(usuario);
+        papelService.deletePapelFromUsuario(usuarioId, papelId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/papeis/{id}")
-    public ResponseEntity<HttpStatus> deletePapel(@PathVariable("id") long id) {
-        papelRepository.deleteById(id);
+    public ResponseEntity<HttpStatus> deletePapel(@PathVariable("id") Long id) {
+        papelService.deletePapelById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

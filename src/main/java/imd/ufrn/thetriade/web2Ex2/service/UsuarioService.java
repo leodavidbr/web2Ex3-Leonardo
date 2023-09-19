@@ -62,4 +62,8 @@ public class UsuarioService {
         usuarioRepository.deleteAll();
     }
 
+    public boolean existsById(Long id) {
+        return usuarioRepository.existsById(id);
+    }
+
 }
