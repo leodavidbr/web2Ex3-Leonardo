@@ -1,6 +1,5 @@
 package imd.ufrn.thetriade.web2Ex2.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
-import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
 import imd.ufrn.thetriade.web2Ex2.service.UsuarioService;
 import jakarta.validation.Valid;

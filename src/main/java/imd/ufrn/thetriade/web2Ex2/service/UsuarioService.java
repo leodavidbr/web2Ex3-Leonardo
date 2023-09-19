@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
 import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class UsuarioService {
