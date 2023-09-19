@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import imd.ufrn.thetriade.web2Ex2.model.Usuario;
-import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
 import imd.ufrn.thetriade.web2Ex2.service.UsuarioService;
 import jakarta.validation.Valid;
 
