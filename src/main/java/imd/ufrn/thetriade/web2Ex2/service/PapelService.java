@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import imd.ufrn.thetriade.web2Ex2.exception.ResourceNotFoundException;
@@ -12,6 +13,7 @@ import imd.ufrn.thetriade.web2Ex2.model.Usuario;
 import imd.ufrn.thetriade.web2Ex2.repository.PapelRepository;
 import imd.ufrn.thetriade.web2Ex2.repository.UsuarioRepository;
 
+@Service
 public class PapelService {
     @Autowired
     private PapelRepository papelRepository;
