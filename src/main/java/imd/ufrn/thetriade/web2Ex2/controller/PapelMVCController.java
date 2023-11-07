@@ -11,7 +11,7 @@ import imd.ufrn.thetriade.web2Ex2.model.Papel;
 import imd.ufrn.thetriade.web2Ex2.service.PapelService;
 import jakarta.validation.Valid;
 
-@Controller
+// @Controller
 public class PapelMVCController {
     @Autowired
     private PapelService papelService;
