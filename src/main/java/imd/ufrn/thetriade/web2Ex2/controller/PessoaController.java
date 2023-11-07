@@ -15,7 +15,7 @@ import imd.ufrn.thetriade.web2Ex2.model.Pessoa;
 import imd.ufrn.thetriade.web2Ex2.repository.PessoaRepository;
 import jakarta.validation.Valid;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api/pessoa")
 public class PessoaController {

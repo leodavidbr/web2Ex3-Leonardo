@@ -20,7 +20,7 @@ import imd.ufrn.thetriade.web2Ex2.model.Usuario;
 import imd.ufrn.thetriade.web2Ex2.service.PapelService;
 import jakarta.validation.Valid;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api/papel")
 public class PapelController {
