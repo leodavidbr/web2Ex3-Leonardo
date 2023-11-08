@@ -33,6 +33,13 @@ public class UsuarioService {
                         "Usuario with id = " + id + " not found"));
     }
 
+
+    public Usuario findByEmailAndSenha(String email, String senha){
+        return usuarioRepository.findByEmailAndSenha(email, senha)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                      "Usuario ou Senha errados"));
+    }
+
     public Usuario createUsuario(Usuario usuario) {
         usuario.setId(null);
         Long pessoaId = usuario.getPessoa().getId();

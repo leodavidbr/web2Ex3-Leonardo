@@ -20,15 +20,14 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().disable().csrf().disable()
+        httpSecurity.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("swagger-ui.html"), 
-                            AntPathRequestMatcher.antMatcher("/swagger-ui/**"), 
-                            AntPathRequestMatcher.antMatcher("/v3/api-docs/**"))
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("swagger-ui.html"),
+                                AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
+                                AntPathRequestMatcher.antMatcher("/v3/api-docs/**"))
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .anyRequest().permitAll())
-                        // permitAll -> authenticated
+                        .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

@@ -8,11 +8,11 @@ INSERT INTO papel (nome, prioridade) VALUES
     ( 'SCRUM MASTER', 2L),
     ( 'DESENVOLVEDOR', 1L);
 
-INSERT INTO usuario (Id_Pessoa, email) VALUES
-    (1L, 'pvlb@gmail.com'),
-    (1L, 'pvlb-dev@gmail.com'),
-    (2L, 'Fqt@gmail.com'),
-    (3L, 'LeonardoDavid@gmail.com');
+INSERT INTO usuario (Id_Pessoa, email, senha) VALUES
+    (1L, 'pvlb@gmail.com', '123'),
+    (1L, 'pvlb-dev@gmail.com', '123'),
+    (2L, 'Fqt@gmail.com', '123'),
+    (3L, 'LeonardoDavid@gmail.com', '123');
 
 INSERT INTO usuario_tem_papeis(usuario_id, papel_id) VALUES
     (1L, 2L),

@@ -37,6 +37,9 @@ public class Usuario {
     @NotBlank
     private String email;
 
+    @NotBlank
+    private String senha;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
